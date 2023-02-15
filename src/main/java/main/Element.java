@@ -14,10 +14,12 @@ public class Element extends Child {
     private List<Child> children = new LinkedList<>();
 
     public Element(String name) {
+        super(Type.ELEMENT);
         this.name = name;
     }
 
     public Element(String name, String text) {
+        super(Type.ELEMENT);
         this.name = name;
         addChild(text);
     }
@@ -57,7 +59,9 @@ public class Element extends Child {
             }
         }
         printWriter.println(">");
-        children.forEach(child -> child.writeToFile(printWriter, level + 1));
+        int childLevel = children.size() == 1 && children.get(0).getType() == Type.TEXT ? 0 : level + 1;
+        children.forEach(child -> child.writeToFile(printWriter, childLevel));
+        IntStream.range(0, 2 * level).forEach(ignored -> printWriter.print(" "));
         printWriter.print("</");
         printWriter.print(encode(name));
         printWriter.println(">");

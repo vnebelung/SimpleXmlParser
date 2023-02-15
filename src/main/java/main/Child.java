@@ -4,6 +4,13 @@ import java.io.PrintWriter;
 
 abstract class Child {
 
+    private Type type;
+
+    Child(Type type) {
+        this.type = type;
+    }
+
+    enum Type {TEXT, ELEMENT}
     abstract void writeToFile(PrintWriter printWriter, int level);
 
     String encode(String text) {
@@ -26,6 +33,8 @@ abstract class Child {
         return result.toString();
     }
 
-
+    Type getType() {
+        return type;
+    }
 
 }

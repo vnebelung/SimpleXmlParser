@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.prodisfuzz</groupId>
     <artifactId>simple-xml-parser</artifactId>
-    <version>1</version>
+    <version>2</version>
     <packaging>jar</packaging>
     <name>SimpleXmlParser</name>
     <properties>

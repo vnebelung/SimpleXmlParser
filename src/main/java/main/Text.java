@@ -8,6 +8,7 @@ class Text extends Child {
     private String text;
 
     public Text(String text) {
+        super(Type.TEXT);
         this.text = text;
     }
 
