@@ -61,7 +61,9 @@ public class Element extends Child {
         printWriter.println(">");
         int childLevel = children.size() == 1 && children.get(0).getType() == Type.TEXT ? 0 : level + 1;
         children.forEach(child -> child.writeToFile(printWriter, childLevel));
-        IntStream.range(0, 2 * level).forEach(ignored -> printWriter.print(" "));
+        if (childLevel == 0) {
+            IntStream.range(0, 2 * level).forEach(ignored -> printWriter.print(" "));
+        }
         printWriter.print("</");
         printWriter.print(encode(name));
         printWriter.println(">");

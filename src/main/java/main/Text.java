@@ -15,6 +15,10 @@ class Text extends Child {
     @Override
     void writeToFile(PrintWriter printWriter, int level) {
         IntStream.range(0, 2 * level).forEach(ignored -> printWriter.print(" "));
-        printWriter.println(encode(text));
+        if (level == 0) {
+            printWriter.print(encode(text));
+        } else {
+            printWriter.println(encode(text));
+        }
     }
 }
