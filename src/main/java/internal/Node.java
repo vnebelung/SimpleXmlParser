@@ -1,19 +1,23 @@
-package main;
+package internal;
 
 import java.io.PrintWriter;
 
-abstract class Child {
+public abstract class Node {
 
     private Type type;
 
-    Child(Type type) {
+    public Node(Type type) {
         this.type = type;
     }
 
-    enum Type {TEXT, ELEMENT}
-    abstract void writeToFile(PrintWriter printWriter, int level);
+    protected enum Type {
+        TEXT,
+        ELEMENT
+    }
 
-    String encode(String text) {
+    public abstract void toXml(PrintWriter printWriter, int level);
+
+    protected static String encode(String text) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
@@ -33,7 +37,7 @@ abstract class Child {
         return result.toString();
     }
 
-    Type getType() {
+    public Type getType() {
         return type;
     }
 

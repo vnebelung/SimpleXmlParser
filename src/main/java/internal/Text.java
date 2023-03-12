@@ -1,9 +1,13 @@
-package main;
+package internal;
 
 import java.io.PrintWriter;
 import java.util.stream.IntStream;
 
-class Text extends Child {
+public class Text extends Node {
+
+    public String getText() {
+        return text;
+    }
 
     private String text;
 
@@ -13,7 +17,7 @@ class Text extends Child {
     }
 
     @Override
-    void writeToFile(PrintWriter printWriter, int level) {
+    public void toXml(PrintWriter printWriter, int level) {
         IntStream.range(0, 2 * level).forEach(ignored -> printWriter.print(" "));
         if (level == 0) {
             printWriter.print(encode(text));
