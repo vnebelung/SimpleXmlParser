@@ -5,12 +5,20 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.prodisfuzz</groupId>
     <artifactId>simple-xml-parser</artifactId>
-    <version>2</version>
+    <version>3</version>
     <packaging>jar</packaging>
     <name>SimpleXmlParser</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.4.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>

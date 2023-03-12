@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+< root        rootkey1="rootvalue1"        rootkey2 rootkey3="rootvalue3">
+<child1 />
+        TEXT1
+        <child2 child2key1   child2key2="child2value2"></child2>
+        <child3><child4 /><child5>
+        TEXT2
+        </child5></child3>
+</root>
