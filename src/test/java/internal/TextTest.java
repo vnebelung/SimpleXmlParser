@@ -23,6 +23,7 @@ public class TextTest {
     @Test
     public void testToXml1() throws IOException {
         Text text = new Text("TEXT");
+        text.setIndented(true);
         try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(); PrintWriter printWriter =
                 new PrintWriter(byteArrayOutputStream)) {
             text.toXml(printWriter, 2);

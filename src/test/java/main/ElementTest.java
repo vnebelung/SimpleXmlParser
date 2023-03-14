@@ -230,4 +230,15 @@ public class ElementTest {
             Assert.assertEquals(byteArrayOutputStream.toString(), "<name><name2 /></name>\n");
         }
     }
+
+    @Test
+    public void testToXml7() throws IOException {
+        Element element = new Element("name").addChild("text1").addChild(new Element("name2"), true).addChild("text2");
+        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+             PrintWriter printWriter = new PrintWriter(byteArrayOutputStream)) {
+            element.toXml(printWriter, 0);
+            printWriter.flush();
+            Assert.assertEquals(byteArrayOutputStream.toString(), "<name>text1<name2 />text2</name>\n");
+        }
+    }
 }

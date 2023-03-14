@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.prodisfuzz</groupId>
     <artifactId>simple-xml-parser</artifactId>
-    <version>3</version>
+    <version>4</version>
     <packaging>jar</packaging>
     <name>SimpleXmlParser</name>
     <properties>
@@ -15,7 +15,7 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>7.4.0</version>
+            <version>7.7.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

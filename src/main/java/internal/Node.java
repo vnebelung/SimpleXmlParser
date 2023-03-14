@@ -5,9 +5,19 @@ import java.io.PrintWriter;
 public abstract class Node {
 
     private Type type;
+    private boolean indented;
 
-    public Node(Type type) {
+    public Node(Type type, boolean indented) {
         this.type = type;
+        this.indented = indented;
+    }
+
+    public boolean isIndented() {
+        return indented;
+    }
+
+    public void setIndented(boolean indented) {
+        this.indented = indented;
     }
 
     protected enum Type {

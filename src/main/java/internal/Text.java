@@ -12,17 +12,17 @@ public class Text extends Node {
     private String text;
 
     public Text(String text) {
-        super(Type.TEXT);
+        super(Type.TEXT, false);
         this.text = text;
     }
 
     @Override
     public void toXml(PrintWriter printWriter, int level) {
-        IntStream.range(0, 2 * level).forEach(ignored -> printWriter.print(" "));
-        if (level == 0) {
-            printWriter.print(encode(text));
-        } else {
+        if (isIndented()) {
+            IntStream.range(0, 2 * level).forEach(ignored -> printWriter.print(" "));
             printWriter.println(encode(text));
+        } else {
+            printWriter.print(encode(text));
         }
     }
 }

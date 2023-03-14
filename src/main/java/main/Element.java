@@ -20,7 +20,6 @@ public class Element extends Node {
     private List<Node> children = new LinkedList<>();
     private List<Element> childElements = new LinkedList<>();
     private List<Text> childTexts = new LinkedList<>();
-    private boolean preventIndent;
 
     /**
      * Creates an element with a given name.
@@ -29,7 +28,7 @@ public class Element extends Node {
      * @throws IllegalArgumentException if the name contains characters that do not match the requirements of XML names
      */
     public Element(String name) {
-        super(Type.ELEMENT);
+        super(Type.ELEMENT, true);
         if (!Parser.isStartCharacter(name.charAt(0))) {
             throw new IllegalArgumentException("Illegal character in element name");
         }
@@ -112,7 +111,10 @@ public class Element extends Node {
      * @return the modified element
      */
     public Element addChild(Element element, boolean preventIndent) {
-        element.preventIndent = preventIndent;
+        element.setIndented(!preventIndent);
+        if (!children.isEmpty() && children.get(children.size() - 1).getType() == Type.TEXT) {
+            children.get(children.size() - 1).setIndented(!preventIndent);
+        }
         children.add(element);
         childElements.add(element);
         return this;
@@ -138,6 +140,7 @@ public class Element extends Node {
             addChild(old.getText() + text);
         } else {
             Text child = new Text(text);
+            child.setIndented(!children.isEmpty() && children.get(children.size() - 1).isIndented());
             children.add(child);
             childTexts.add(child);
         }
@@ -153,7 +156,7 @@ public class Element extends Node {
      */
     @Override
     public void toXml(PrintWriter printWriter, int level) {
-        if (!preventIndent) {
+        if (isIndented()) {
             IntStream.range(0, 2 * level).forEach(ignored -> printWriter.print(" "));
         }
         printWriter.print("<");
@@ -168,21 +171,19 @@ public class Element extends Node {
             }
         }
         if (children.isEmpty()) {
-            if (preventIndent) {
-                printWriter.print(" />");
-            } else {
+            if (isIndented()) {
                 printWriter.println(" />");
+            } else {
+                printWriter.print(" />");
             }
         } else {
-            int childLevel = (children.size() == 1 && children.get(0).getType() == Type.TEXT) ||
-                    (children.get(0).getType() == Type.ELEMENT && childElements.get(0).preventIndent) ? 0 : level + 1;
-            if (childLevel != 0) {
+            if (children.get(0).isIndented()) {
                 printWriter.println(">");
             } else {
                 printWriter.print(">");
             }
-            children.forEach(child -> child.toXml(printWriter, childLevel));
-            if (childLevel != 0) {
+            children.forEach(child -> child.toXml(printWriter, level + 1));
+            if (children.get(children.size() - 1).isIndented()) {
                 IntStream.range(0, 2 * level).forEach(ignored -> printWriter.print(" "));
             }
             printWriter.print("</");
